@@ -83,5 +83,5 @@ These are proposed experiments. The project does not report implemented interven
 | [Cleaned dataset](subscriptions_cleaned.csv) | Subscription records used in the analysis |
 | [Segment churn comparisons](Churn_rates_and_adjusted_probabilities_by_segment.pdf) | Observed rates and adjusted probabilities; PDF chart |
 | [Observed versus adjusted segment churn](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf) | Side-by-side segment comparison; PDF chart |
-| [Acquisition channel comparison](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf) | Raw and adjusted churn probabilities by channel; PDF chart |
+| [Acquisition channel comparison](acquisition-channel-comparison.pdf) | Raw and adjusted churn probabilities by channel; PDF chart |
 | [Classifier evaluation](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf) | Precision, recall, and F1 comparison with a majority-rule baseline; PDF chart |
