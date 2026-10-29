@@ -47,7 +47,7 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 [View the full-size confidence interval comparison (PDF)](Churn_rates_and_adjusted_probabilities_by_segment.pdf)
 
-![Observed and adjusted churn estimates with confidence intervals for monthly promo-offer, other monthly, and annual promo-offer subscribers](Churn_rates_and_adjusted_probabilities_by_segment.png)
+
 
 **Interpretation:** Reported adjusted churn probabilities are **63.0%**, **47.5%**, and **30.0%** for the three respective groups. The intervals show uncertainty around each estimate. This chart presents an alternative view of the same segment comparison.
 
@@ -55,7 +55,6 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 [View the full-size acquisition channel visualization (PDF)](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf)
 
-![Original acquisition channel comparison, with the orange Raw series and a second blue series](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.png)
 
 **Interpretation:** In the cleaned dataset, promo-offer subscribers across both plan types have **50.8%** observed churn, compared with **33.8%** for referral subscribers. These channel-wide groups differ from the monthly-only segment comparison.
 
@@ -65,7 +64,6 @@ The original chart labels the orange series Raw but does not identify the blue s
 
 [View the full-size classifier evaluation (PDF)](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf)
 
-![Logistic classifier precision, recall, and F1 compared with an always-majority-class rule](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.png)
 
 **Interpretation:** The classifier has reported precision of **0.637**, recall of **0.502**, and F1 of approximately **0.56**. It identifies about half of recorded churn cases. The majority-rule baseline makes no positive churn predictions, and the chart displays zero churn-class precision, recall, and F1.
 
