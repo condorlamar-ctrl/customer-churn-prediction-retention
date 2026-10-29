@@ -38,7 +38,7 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 ### 1. Observed Versus Adjusted Churn by Segment
 
-[View the full-size segment visualization](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf)
+[View the full-size segment visualization (PDF)](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf)
 
 ![Observed churn rates and adjusted churn probabilities across the three featured subscriber segments](Observed_vs_Adjusted_Churn_Rate_by_Segment.png)
 
@@ -46,7 +46,7 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 ### 2. Segment Churn Estimates and Confidence Intervals
 
-[View the full-size confidence interval comparison](Churn_rates_and_adjusted_probabilities_by_segment.pdf)
+[View the full-size confidence interval comparison (PDF)](Churn_rates_and_adjusted_probabilities_by_segment.pdf)
 
 ![Observed and adjusted churn estimates with confidence intervals for monthly promo-offer, other monthly, and annual promo-offer subscribers](Churn_rates_and_adjusted_probabilities_by_segment.png)
 
@@ -54,7 +54,7 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 ### 3. Churn Probability by Acquisition Channel
 
-[View the full-size acquisition channel visualization](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf)
+[View the full-size acquisition channel visualization (PDF)](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf)
 
 ![Original acquisition channel comparison, with the orange Raw series and a second blue series](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.png)
 
@@ -64,7 +64,7 @@ The original chart labels the orange series Raw but does not identify the blue s
 
 ### 4. Classifier Evaluation Versus a Majority-Rule Baseline
 
-[View the full-size classifier evaluation](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf)
+[View the full-size classifier evaluation (PDF)](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf)
 
 ![Logistic classifier precision, recall, and F1 compared with an always-majority-class rule](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.png)
 
