@@ -4,7 +4,7 @@ Customer Churn Analysis & Retention Strategy
 
 Monthly subscribers acquired through promotional offers had the highest observed churn among the three segments compared in the report: **63.3%**, versus **47.7%** for other monthly subscribers. This project uses customer segmentation, statistical comparisons, and logistic regression to turn that finding into practical retention recommendations.
 
-**[Read the executive report](overview%20customer%20churn.pdf)** | **[Explore the cleaned dataset](subscriptions_cleaned.csv)** | **[View the Jupyter Notebook](customer_churn_analysis.ipynb)**
+**[Read the executive report](overview%20customer%20churn.pdf)** | **[Explore the cleaned dataset](subscriptions_cleaned.csv)** | **[View the visualizations](#visualizations)**
 
 ## Business Problem
 
@@ -34,6 +34,44 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 **Business takeaway:** Monthly promo-offer churn was **15.6 percentage points higher** than other monthly churn and **33.0 percentage points higher** than annual promo-offer churn. The same ordering remained after adjustment, making this group a priority for retention testing. These associations do not prove that promotions or monthly billing cause churn.
 
+## Visualizations
+
+### 1. Observed Versus Adjusted Churn by Segment
+
+[View the full-size PNG](Observed_vs_Adjusted_Churn_Rate_by_Segment.png) | [View the PDF](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf)
+
+![Observed churn rates and adjusted probabilities for annual promo-offer, other monthly, and monthly promo-offer subscriptions](Observed_vs_Adjusted_Churn_Rate_by_Segment.png)
+
+**Interpretation:** Monthly promo-offer subscribers have the highest observed churn (**63.3%**) among the three featured groups. The adjusted estimate (**63.0%**) preserves the ordering. Annual promo-offer subscribers have the lowest observed and adjusted estimates.
+
+### 2. Segment Estimates and Confidence Intervals
+
+[View the full-size PNG](Churn_rates_and_adjusted_probabilities_by_segment.png) | [View the PDF](Churn_rates_and_adjusted_probabilities_by_segment.pdf)
+
+![Observed and adjusted churn estimates with confidence intervals for the three subscriber segments](Churn_rates_and_adjusted_probabilities_by_segment.png)
+
+**Interpretation:** This is an alternative view of the same three-group comparison. The report gives adjusted probabilities of **63.0%**, **47.5%**, and **30.0%** for monthly promo-offer, other monthly, and annual promo-offer subscribers, respectively. Confidence intervals show the uncertainty around these estimates.
+
+### 3. Churn by Acquisition Channel
+
+[View the full-size PNG](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.png) | [View the PDF](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf)
+
+![Original acquisition-channel export showing raw and a second unlabeled churn-probability series](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.png)
+
+**Interpretation:** Across both plan types, the cleaned dataset records **50.8%** observed churn for promo-offer acquisition and **33.8%** for referral acquisition. These channel-wide populations differ from the monthly-only segment comparison.
+
+**Export note:** Although the filename describes raw and adjusted probabilities, the original legend labels only the orange Raw series. The blue series is not identified in the legend. Its exact values and adjustment procedure are not supplied in a separate table, so adjusted channel differences are not interpreted here.
+
+### 4. Classifier Evaluation Versus a Majority-Rule Baseline
+
+[View the full-size PNG](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.png) | [View the PDF](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf)
+
+![Logistic classifier precision, recall, and F1 compared with an always-majority-class rule](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.png)
+
+**Interpretation:** The chart reports precision of **0.637**, recall of **0.502**, and F1 of approximately **0.56**. The majority-rule baseline identifies no churn cases and is displayed with zero churn-class precision, recall, and F1. Zero precision here is the export's convention for a rule that makes no positive churn predictions.
+
+The four supplied charts are preserved at their original **4,321 × 2,671-pixel** PNG resolution. Each also has a linked PDF. Keep the images, PDFs, report, and dataset beside this README for the relative links to resolve.
+
 ## Approach & Tools
 
 **Analysis platform:** PlotStudio AI.
@@ -53,9 +91,27 @@ The analysis excluded `churn_date` and `cancel_reason` from predictors to avoid 
 | ROC-AUC | 0.751 | Ability to distinguish churned from non-churned subscriptions across thresholds |
 | Precision | 0.637 | Share of subscriptions flagged as churned that actually churned |
 | Recall | 0.502 | Share of churned subscriptions correctly identified |
-| F1-score | 0.562 | Balance between precision and recall |
+| F1-score | ≈0.56 | Balance between precision and recall |
+
+The scores above are reported in the supplied project summary rather than independently reproduced here. The chart labels F1 as **0.561**, its filename uses **0.5615**, and the original summary rounds it to **0.562**. The README uses approximately **0.56** to avoid implying a reconciled final decimal. ROC-AUC is reported in the summary and is not plotted in the classifier export.
 
 At the evaluated classification threshold, the model identified about half of recorded churn cases. These results describe classification of recorded churn in this dataset; **future-churn prediction has not been validated**.
+
+## Data Validation
+
+| Validation check | Result | What it establishes |
+| --- | ---: | --- |
+| Subscription records | 4,200 | Dataset size agrees with the executive report |
+| Unique customer identifiers | 4,200 | No duplicate customer IDs |
+| Recorded churn | 1,768 yes; 2,432 no | Overall observed churn is 42.1% |
+| Missing core identifiers, predictors, and churn flag | 0 | The nine checked fields are populated |
+| Featured segment sizes | 589; 2,072; 360 | Counts agree with the report's three comparison groups |
+| Featured observed churn rates | 63.3%; 47.7%; 30.3% | Rates recalculated from the cleaned data agree with the report |
+| Chart exports | 4 PNGs and 4 PDFs | All linked originals were extracted from the supplied archives |
+
+The three featured groups contain **3,021 subscriptions**. The remaining **1,179** are annual subscribers acquired through channels other than promo offers. Reported overall churn covers all 4,200 records.
+
+Missing churn dates for non-churned subscriptions are distinct from missing predictors. Adjusted probabilities, confidence intervals, and classification scores are retained as reported; a runnable estimation pipeline was not supplied and these models were not refitted.
 
 ## Recommended Retention Experiments
 
@@ -80,9 +136,10 @@ These are proposed experiments. The project does not report implemented interven
 | File | Contents |
 | --- | --- |
 | [Executive report](overview%20customer%20churn.pdf) | Findings, confidence intervals, interpretation, and recommended experiments |
-| [Cleaned dataset](subscriptions_cleaned.csv) | Subscription records used in the analysis |
-| [Segment churn comparisons](Churn_rates_and_adjusted_probabilities_by_segment.pdf) | Observed rates and adjusted probabilities; PDF chart |
-| [Observed versus adjusted segment churn](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf) | Side-by-side segment comparison; PDF chart |
-| [Acquisition channel comparison](https://github.com/condorlamar-ctrl/customer-churn-prediction-retention/blob/main/Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf) | Raw and adjusted churn probabilities by channel; PDF chart |
-| [Classifier evaluation](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf) | Precision, recall, and F1 comparison with a majority-rule baseline; PDF chart |
+| [Cleaned dataset](subscriptions_cleaned.csv) | 4,200 subscription records used in the analysis |
+| [Observed versus adjusted segment churn — PNG](Observed_vs_Adjusted_Churn_Rate_by_Segment.png) / [PDF](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf) | Observed and adjusted estimates for the three featured segments |
+| [Segment estimates and confidence intervals — PNG](Churn_rates_and_adjusted_probabilities_by_segment.png) / [PDF](Churn_rates_and_adjusted_probabilities_by_segment.pdf) | Alternative view of the three-segment comparison |
+| [Acquisition channel comparison — PNG](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.png) / [PDF](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf) | Original channel export; the second series is unlabeled in the legend |
+| [Classifier evaluation — PNG](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.png) / [PDF](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf) | Precision, recall, and F1 comparison with a majority-rule baseline |
 
+The supplied project files include the cleaned dataset, executive report, and chart exports. A runnable notebook and model pipeline are not included, so this README links only the supplied assets.
