@@ -40,7 +40,6 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 [View the full-size segment visualization (PDF)](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf)
 
-![Observed churn rates and adjusted churn probabilities across the three featured subscriber segments](Observed_vs_Adjusted_Churn_Rate_by_Segment.png)
 
 **Interpretation:** Monthly promo-offer subscribers have the highest observed churn (**63.3%**) among the featured groups, followed by other monthly subscribers (**47.7%**) and annual promo-offer subscribers (**30.3%**). The same ordering remains after adjustment.
 
