@@ -4,7 +4,7 @@ Customer Churn Analysis & Retention Strategy
 
 Monthly subscribers acquired through promotional offers had the highest observed churn among the three segments compared in the report: **63.3%**, versus **47.7%** for other monthly subscribers. This project uses customer segmentation, statistical comparisons, and logistic regression to turn that finding into practical retention recommendations.
 
-**[Read the executive report](overview%20customer%20churn.pdf)** | **[Explore the cleaned dataset](subscriptions_cleaned.csv)** | **[View the segment comparison](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf)** | **[View classifier results](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf)** | **[View the visualizations](#visualizations)**
+**[Read the executive report](overview%20customer%20churn.pdf)** | **[Explore the cleaned dataset](subscriptions_cleaned.csv)** | **[View the segment comparison](churn_observed_vs_adjusted_segments.png)** | **[View classifier results](churn_classifier_performance.png)**
 
 ## Business Problem
 
@@ -12,7 +12,7 @@ Customer churn reduces recurring revenue and increases the cost of replacing los
 
 > Which subscriber groups should the business prioritize for retention efforts, and what should it test to improve retention?
 
-The analysis focuses on how monthly promo-offer subscribers compare with other monthly subscribers and annual promo-offer subscribers.
+The analysis uses **subscriptions_cleaned.csv**, supported by the executive report and supplied classification results. Each row represents one subscription. The featured comparison focuses on monthly promo-offer subscribers, other monthly subscribers, and annual promo-offer subscribers.
 
 ## Results at a Glance
 
@@ -20,17 +20,33 @@ The analysis focuses on how monthly promo-offer subscribers compare with other m
 | --- | ---: |
 | Total subscriptions analyzed | 4,200 |
 | Churned subscriptions | 1,768 |
+| Non-churned subscriptions | 2,432 |
 | Overall observed churn rate | 42.1% |
+| Subscriptions in the three featured segments | 3,021 |
+
+Observed churn is **the number of subscriptions marked churned divided by the number of subscriptions in the relevant group**. The three featured groups do not represent all 4,200 subscriptions. The remaining **1,179** are annual subscribers acquired through non-promo channels.
 
 ### Churn by Subscriber Segment
 
 | Segment | Subscriptions | Observed churn rate | Adjusted churn probability |
 | --- | ---: | ---: | ---: |
-| **Monthly promo-offer** | **589** | **63.3%** | **63.0%** |
+| **Monthly promo-offer** | 589 | 63.3% | 63.0% |
 | Other monthly | 2,072 | 47.7% | 47.5% |
 | Annual promo-offer | 360 | 30.3% | 30.0% |
 
-These are the three comparison groups featured in the report, rather than all 4,200 subscriptions. "Other monthly" includes monthly subscribers acquired through channels other than promo offers. Adjusted probabilities account for observed differences in demographics, device, plan tier, and signup cohort; the report includes 95% confidence intervals.
+“Other monthly” includes monthly subscribers acquired through channels other than promo offers. Adjusted probabilities account for the demographic, device, plan-tier, and signup-cohort differences reported in the executive report.
+
+### Churn by Acquisition Channel
+
+| Acquisition channel | Subscriptions | Churned subscriptions | Observed churn rate |
+| --- | ---: | ---: | ---: |
+| Promo offer | 949 | 482 | 50.8% |
+| Partner | 476 | 204 | 42.9% |
+| Organic | 1,298 | 532 | 41.0% |
+| Paid social | 989 | 385 | 38.9% |
+| Referral | 488 | 165 | 33.8% |
+
+Channel rates cover both monthly and annual subscriptions. They describe different populations from the three featured segment comparisons.
 
 **Business takeaway:** Monthly promo-offer churn was **15.6 percentage points higher** than other monthly churn and **33.0 percentage points higher** than annual promo-offer churn. The same ordering remained after adjustment, making this group a priority for retention testing. These associations do not prove that promotions or monthly billing cause churn.
 
@@ -38,75 +54,77 @@ These are the three comparison groups featured in the report, rather than all 4,
 
 ### 1. Observed Versus Adjusted Churn by Segment
 
-[View the full-size segment visualization (PDF)](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf)
+[View the full-size visualization](churn_observed_vs_adjusted_segments.png)
 
+![Observed and adjusted churn across the three featured subscriber segments](churn_observed_vs_adjusted_segments.png)
 
-**Interpretation:** Monthly promo-offer subscribers have the highest observed churn (**63.3%**) among the featured groups, followed by other monthly subscribers (**47.7%**) and annual promo-offer subscribers (**30.3%**). The same ordering remains after adjustment.
+**Interpretation:** Monthly promo-offer subscribers have **63.3%** observed churn and **63.0%** reported adjusted churn probability. The paired bars show that the three groups retain the same ordering after adjustment.
 
-### 2. Segment Churn Estimates and Confidence Intervals
+### 2. Segment Estimates and Confidence Intervals
 
-[View the full-size confidence interval comparison (PDF)](Churn_rates_and_adjusted_probabilities_by_segment.pdf)
+[View the full-size confidence interval comparison](churn_segment_confidence_intervals.png)
 
-**Interpretation:** Reported adjusted churn probabilities are **63.0%**, **47.5%**, and **30.0%** for the three respective groups. The intervals show uncertainty around each estimate. This chart presents an alternative view of the same segment comparison.
+![Observed churn and adjusted probability estimates with their reported 95 percent confidence intervals](churn_segment_confidence_intervals.png)
 
-### 3. Churn Probability by Acquisition Channel
+**Interpretation:** The monthly promo-offer adjusted estimate has a reported **95% confidence interval of 54.5%–71.4%**. The matching scales show uncertainty around all three groups. Confidence intervals are reproduced from the report; the models were not refitted.
 
-[View the full-size acquisition channel visualization (PDF)](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf)
+### 3. Observed Churn by Acquisition Channel
 
+[View the full-size acquisition channel visualization](churn_observed_by_acquisition_channel.png)
 
-**Interpretation:** In the cleaned dataset, promo-offer subscribers across both plan types have **50.8%** observed churn, compared with **33.8%** for referral subscribers. These channel-wide groups differ from the monthly-only segment comparison.
+![Observed churn across all five acquisition channels with the overall churn rate as a reference](churn_observed_by_acquisition_channel.png)
 
-The original chart labels the orange series Raw but does not identify the blue series in its legend. Adjusted channel values are therefore not interpreted from this export.
+**Interpretation:** Promo offer has the highest observed channel rate (**50.8%**) and referral has the lowest (**33.8%**). Review plan mix and the time available to churn before making channel decisions. This chart uses verified raw rates and does not reproduce the earlier export's unlabeled adjusted series.
 
-### 4. Classifier Evaluation Versus a Majority-Rule Baseline
+### 4. Classifier Performance Versus a Majority Baseline
 
-[View the full-size classifier evaluation (PDF)](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf)
+[View the full-size classifier evaluation](churn_classifier_performance.png)
 
+![Reported logistic classifier precision recall and F1 compared with an always non-churn baseline](churn_classifier_performance.png)
 
-**Interpretation:** The classifier has reported precision of **0.637**, recall of **0.502**, and F1 of approximately **0.56**. It identifies about half of recorded churn cases. The majority-rule baseline makes no positive churn predictions, and the chart displays zero churn-class precision, recall, and F1.
+**Interpretation:** Precision is **0.637**, recall is **0.502**, and F1 is approximately **0.56**. About half of recorded churn cases were identified. The majority baseline predicts no churn cases; the supplied display convention assigns it zero churn-class precision, recall, and F1.
 
-The previews are **2,400 × 1,480-pixel** PNGs rendered from the four supplied PDFs. Keep the PNGs and PDFs beside this README so both previews and full-size links work on GitHub.
+All four charts are **2,400 × 1,500-pixel PNGs**, with readable labels, source notes, and business interpretations. Keep them beside this README for the relative image links to work.
 
 ## Approach & Tools
 
-**Analysis platform:** PlotStudio AI.
+**Analysis platform:** PlotStudio AI. **Data checks and chart preparation:** Python, Pandas, and NumPy.
 
-1. **Prepare the data:** Clean subscription records and perform data quality checks.
-2. **Explore churn patterns:** Compare recorded churn across subscription plans and acquisition channels.
-3. **Assess segment differences:** Use statistical comparisons, confidence intervals, and adjusted logistic regression analysis.
-4. **Evaluate classification:** Assess a logistic regression classifier using stratified 5-fold cross-validation.
+1. **Prepare the data:** Review subscription records, identifiers, missing values, and the recorded churn indicator.
+2. **Explore churn patterns:** Compare observed churn across subscription segments and acquisition channels.
+3. **Assess segment differences:** Present the executive report's adjusted logistic regression estimates and confidence intervals.
+4. **Evaluate classification:** Review the reported classifier results from stratified 5-fold cross-validation against the majority-rule baseline.
 5. **Recommend business tests:** Translate the findings into targeted retention experiments.
 
-The analysis excluded `churn_date` and `cancel_reason` from predictors to avoid using information that reveals a customer's churn outcome.
+The original analysis excluded **churn_date** and **cancel_reason** from predictors to avoid using information that reveals the churn outcome. Observed rates in the new charts were recalculated from the cleaned dataset. Adjusted results and model scores are retained as supplied.
 
-The reported classification results use stratified 5-fold cross-validation. The supplied files contain the report, cleaned data, and chart exports; a runnable model pipeline was not supplied, so the adjusted estimates and classification results were not independently refitted.
-
-## Model Evaluation
+### Reported Model Evaluation
 
 | Reported metric | Score | What it measures |
 | --- | ---: | --- |
 | ROC-AUC | 0.751 | Ability to distinguish churned from non-churned subscriptions across thresholds |
 | Precision | 0.637 | Share of subscriptions flagged as churned that actually churned |
 | Recall | 0.502 | Share of churned subscriptions correctly identified |
-| F1-score | 0.562 | Balance between precision and recall |
+| F1-score | Approximately 0.56 | Balance between precision and recall |
 
-Scores above are reported in the project summary. The original classifier chart displays F1 as **0.561**, while the summary reports **0.562**; both are approximately **0.56**.
+The classifier PDF labels F1 as **0.561**, while the project summary reports **0.562**. The new visualization uses the PDF's printed score. ROC-AUC is reported in the project summary and is not plotted in the classifier chart.
 
-At the evaluated classification threshold, the model identified about half of recorded churn cases. These results describe classification of recorded churn in this dataset; **future-churn prediction has not been validated**.
+These results describe classification of recorded churn in this dataset. **Future-churn prediction has not been validated.**
 
 ## Data Validation
 
 | Validation check | Result | What it establishes |
 | --- | ---: | --- |
-| Subscription records | 4,200 | Dataset size matches the executive report |
+| Subscription records | 4,200 | Dataset size agrees with the executive report |
 | Unique customer identifiers | 4,200 | No duplicate customer IDs |
+| Missing core identifiers, predictors, and churn flag | 0 | The nine checked fields are populated |
 | Recorded churn | 1,768 yes; 2,432 no | Overall observed churn is 42.1% |
-| Missing core identifiers, predictors, and churn flag | 0 | All nine checked fields are populated |
 | Featured segment sizes | 589; 2,072; 360 | Counts agree with the report's comparison groups |
-| Featured observed churn rates | 63.3%; 47.7%; 30.3% | Rates calculated from the dataset agree with the report |
-| Visualization files | 4 supplied PDFs and 4 rendered PNGs | Every chart link and preview resolves within the project folder |
+| Featured observed churn rates | 63.3%; 47.7%; 30.3% | Rates recalculated from the dataset agree with the report |
+| Acquisition channel totals | 4,200 subscriptions; 1,768 churned | All subscriptions are included once in the channel comparison |
+| Adjusted estimates and confidence limits | Retained as reported | No unsupported refitting or inference from chart images |
 
-The three featured groups contain **3,021 subscriptions**. The other **1,179** are annual subscribers acquired through non-promo channels. Overall churn covers all 4,200 records. Adjusted probabilities and confidence intervals are retained as reported rather than recalculated from the chart images.
+A clear observation cutoff is not supplied, so subscriptions may have different amounts of time in which to churn. Dataset completeness does not establish comparable exposure or future predictive performance.
 
 ## Recommended Retention Experiments
 
@@ -114,17 +132,18 @@ The three featured groups contain **3,021 subscriptions**. The other **1,179** a
 | --- | --- | --- |
 | Support monthly promo-offer subscribers early | Randomize targeted onboarding and early-renewal support within this segment | Renewal and churn rates versus a control group |
 | Understand how promotions affect retention | Test promotion framing or eligibility while holding plan price constant where possible | Retention differences between test groups |
-| Evaluate acquisition approaches | Run controlled comparisons of promo and non-promo acquisition approaches for comparable monthly plans | Renewal and churn outcomes by acquisition approach |
+| Evaluate acquisition approaches | Run controlled comparisons of promo and non-promo acquisition for comparable monthly plans | Renewal and churn outcomes by acquisition approach |
 
 These are proposed experiments. The project does not report implemented interventions, retention improvements, or realized revenue savings.
 
 ## Limitations & Next Steps
 
-- **Observation window:** No clear observation cutoff is defined, so subscribers may have different amounts of time in which to churn.
+- **Observation window:** Define a cutoff and comparable time at risk before interpreting churn as a time-based rate.
 - **Association versus causation:** Adjusting for observed characteristics does not establish the causes of churn.
 - **Missing engagement data:** Customer activity and engagement history are unavailable.
 - **Future validation:** Define a prediction date and outcome window, then use time-based validation before deploying a future-churn model.
-- **Reproducibility:** This repository contains the cleaned data, report, and chart exports. Analysis code and a runnable model pipeline are not included.
+- **Metric precision:** The classifier PDF and project summary differ slightly in their final F1 decimal.
+- **Reproducibility:** The supplied files contain the cleaned data, report, and chart exports. A runnable original model pipeline was not supplied, so adjusted probabilities, intervals, and classification metrics were not independently reproduced.
 
 ## Project Files
 
@@ -132,7 +151,7 @@ These are proposed experiments. The project does not report implemented interven
 | --- | --- |
 | [Executive report](overview%20customer%20churn.pdf) | Findings, confidence intervals, interpretation, and recommended experiments |
 | [Cleaned dataset](subscriptions_cleaned.csv) | 4,200 subscription records used in the analysis |
-| [Observed versus adjusted segment churn — PDF](Observed_vs_Adjusted_Churn_Rate_by_Segment.pdf) | Original comparison of observed and adjusted churn by segment |
-| [Segment confidence intervals — PDF](Churn_rates_and_adjusted_probabilities_by_segment.pdf) | Alternative segment comparison showing uncertainty |
-| [Acquisition channel comparison — PDF](Raw_vs_Adjusted_Churn_Probability_by_Acquisition_Channel.pdf) | Original channel export; the blue series is unlabeled |
-| [Classifier evaluation — PDF](Classifier_F1_0.5615_on_4_200_subscriptions_Precision_Recall_F1_vs_Majority_Rule.pdf) | Precision, recall, and F1 comparison with a majority-rule baseline |
+| [Observed versus adjusted segment churn](churn_observed_vs_adjusted_segments.png) | Paired bars comparing observed rates and adjusted probabilities |
+| [Segment confidence intervals](churn_segment_confidence_intervals.png) | Observed and adjusted estimates with reported 95% confidence intervals |
+| [Acquisition channel comparison](churn_observed_by_acquisition_channel.png) | Ranked observed channel rates and the overall churn reference |
+| [Classifier evaluation](churn_classifier_performance.png) | Precision, recall, and F1 versus the majority-rule baseline |
