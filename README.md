@@ -4,7 +4,7 @@ Customer Churn Analysis & Retention Strategy
 
 Monthly subscribers acquired through promotional offers had the highest observed churn among the three segments compared in the report: **63.3%**, versus **47.7%** for other monthly subscribers. This project uses customer segmentation, statistical comparisons, and logistic regression to turn that finding into practical retention recommendations.
 
-**[Read the executive report](overview%20customer%20churn.pdf)** | **[Explore the cleaned dataset](subscriptions_cleaned.csv)** | **[View the segment comparison](churn_observed_vs_adjusted_segments.png)** | **[View classifier results](churn_classifier_performance.png)**
+ **[Explore the cleaned dataset](subscriptions_cleaned.csv)** | **[View the segment comparison](churn_observed_vs_adjusted_segments.png)** | **[View classifier results](churn_classifier_performance.png)**
 
 ## Business Problem
 
@@ -149,7 +149,6 @@ These are proposed experiments. The project does not report implemented interven
 
 | File | Contents |
 | --- | --- |
-| [Executive report](overview%20customer%20churn.pdf) | Findings, confidence intervals, interpretation, and recommended experiments |
 | [Cleaned dataset](subscriptions_cleaned.csv) | 4,200 subscription records used in the analysis |
 | [Observed versus adjusted segment churn](churn_observed_vs_adjusted_segments.png) | Paired bars comparing observed rates and adjusted probabilities |
 | [Segment confidence intervals](churn_segment_confidence_intervals.png) | Observed and adjusted estimates with reported 95% confidence intervals |
