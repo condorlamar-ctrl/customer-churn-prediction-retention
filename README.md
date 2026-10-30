@@ -149,6 +149,7 @@ These are proposed experiments. The project does not report implemented interven
 
 | File | Contents |
 | --- | --- |
+| [Raw dataset](subscriptions.csv) | Original subscription records |
 | [Cleaned dataset](subscriptions_cleaned.csv) | 4,200 subscription records used in the analysis |
 | [Observed versus adjusted segment churn](churn_observed_vs_adjusted_segments.png) | Paired bars comparing observed rates and adjusted probabilities |
 | [Segment confidence intervals](churn_segment_confidence_intervals.png) | Observed and adjusted estimates with reported 95% confidence intervals |
